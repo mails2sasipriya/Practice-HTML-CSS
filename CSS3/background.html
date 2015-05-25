@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        font: 200 1em "Ariel";
+        color: white;
+        height: 100%;
+        background-image: url("images/bg1.jpg"), url("images/bg2.jpg");
+        background-position: 50% 50%, 50% 50%; /* animation works on background-position, work on parallax*/
+        background-repeat: no-repeat, no-repeat;
+        background-attachment: scroll;
+    }
+    div.text {
+        background-color: rgba(0,0,0,0,8);
+        padding: 1em;
+    }
+</style>
+<body>
+ <div class="text"></div>
+</body>
+</html>

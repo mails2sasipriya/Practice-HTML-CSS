@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="base.css"/>
+    <style>
+        body{
+            /*background-color: red;*/
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a3a48;
+            margin: 1em 1em 3em 1em;
+            display: flex;
+            justify-content: space-around;
+            border-radius: 0.25em;
+        }
+
+        .button{
+            font: 500 0.85em 'Helvetica Neue';
+            display: inline-block;
+            line-height: 3em;
+            padding: 0 2em;
+            color: white;
+            cursor: pointer;
+            user-select:none;
+            text-decoration: none;
+        }
+
+        span.button:hover {
+            transition: all 500ms ease;
+            background-color: #415a6f;
+            text-shadow: 1px 1px 1px #2a3a48;
+        }
+
+        div.container {
+            width: 10%;
+            position: absolute;
+        }
+
+        #canvas {
+            display: block;
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+    <title>
+        Canvas Grayscale Filter
+    </title>
+    <script>
+
+        var gllImageFilter = {};
+        gllImageFilter.grayscale = function(img_data){
+            var red, blue, green, gr;
+            for (var i = 0; i < img_data.data.length; i+=4){
+                red = img_data.data[i];
+                blue = img_data.data[i+1];
+                green = img_data.data[i+2];
+                gr = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+                img_data.data[i] = img_data.data[i+1] = img_data.data[i+2] = gr;
+            }
+        };
+        gllImageFilter.blue = function(img_data){
+            var red, blue, green, gr;
+            console.log(img_data.data.length);
+            for (var i = 0; i < img_data.data.length; i+=4){
+                red = img_data.data[i];
+                blue = img_data.data[i+1];
+                green = img_data.data[i+2];
+                gr = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+                img_data.data[i] = 0;
+                img_data.data[i+1] = 0;
+                img_data.data[i+2] = gr;
+            }
+        };
+        gllImageFilter.threshold = function(img_data){
+            var threshold = 100;
+            var red, blue, green, gr;
+            for (var i = 0; i < img_data.data.length; i+=4){
+                red = img_data.data[i];
+                blue = img_data.data[i+1];
+                green = img_data.data[i+2];
+                gr = (0.2126 * red + 0.7152 * green + 0.0722 * blue >= threshold) ? 255 : 0;
+                img_data.data[i] = img_data.data[i+1] = img_data.data[i+2] = gr;
+            }
+        };
+        gllImageFilter.brighten = function(img_data){
+            var red, blue, green, gr;
+            for (var i = 0; i < img_data.data.length; i+=4){
+                img_data.data[i] += 10;
+                img_data.data[i+1] += 10;
+                img_data.data[i+2] += 10;
+            }
+        };
+        gllImageFilter.darken = function(img_data){
+            var red, blue, green, gr;
+            for (var i = 0; i < img_data.data.length; i+=4){
+                img_data.data[i] -= 10;
+                img_data.data[i+1] -= 10;
+                img_data.data[i+2] -= 10;
+            }
+        };
+        gllImageFilter.applyFilter = function(canvas, filter){
+            var context = canvas.getContext('2d');
+            var image_data = context.getImageData(0,0,canvas.width, canvas.height);
+            // console.log(image_data); - DO NOT USE if image is large
+            filter(image_data);
+            context.putImageData(image_data, 0, 0);
+        };
+        gllImageFilter.reset = function(canvas, imgurl){
+            var img = new Image();
+            img.src = imgurl;
+            img.onload = function(){
+                canvas.height = img.height;
+                canvas.width = img.width;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+            };
+        };
+        // todo: transparency
+        gllImageFilter.transparent = function(img_data){
+            for (var i = 0; i < img_data.data.length; i+=4){
+                img_data[i+3] = 0.5;
+            }
+        };
+
+
+        window.onload = function(){
+            var canvas = document.getElementById('canvas');
+            gllImageFilter.reset(canvas, 'img/thailand.jpg');
+            document.getElementById('btn_reset').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.reset(canvas, 'img/thailand.jpg');
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_grayscale').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.grayscale);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_brighten').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.brighten);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_threshold').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.threshold);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_darken').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.darken);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_transparent').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.transparent);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+            document.getElementById('btn_blue').onclick = function(){
+                var canvas = document.getElementById('canvas');
+                gllImageFilter.applyFilter(canvas, gllImageFilter.blue);
+                document.getElementById('download_image').href = canvas.toDataURL();
+            };
+        };
+
+    </script>
+</head>
+<body>
+<header>
+    <span class="button" id="btn_grayscale">Grayscale</span>
+    <span class="button" id="btn_reset">Reset</span>
+    <span class="button" id="btn_brighten">Brighten</span>
+    <span class="button" id="btn_darken">Darken</span>
+    <span class="button" id="btn_threshold">Threshold</span>
+    <span class="button" id="btn_transparent">Transparency</span>
+    <span class="button" id="btn_blue">Blue</span>
+    <a class="button" id="download_image" href="" download="image.jpg">Download</a>
+</header>
+<div class="container">
+
+</div>
+    <canvas id="canvas"></canvas>
+
+
+
+
+
+</body>
+</html>

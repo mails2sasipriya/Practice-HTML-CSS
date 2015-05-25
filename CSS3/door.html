@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        body {
+            perspective: 500px;
+            transform-style: preserve-3d;
+        }
+
+        div.door {
+            height: 350px;
+            width: 175px;
+            background-color: #ff4d51;
+            border: 1px solid red;
+            margin: 3em auto;
+            transform-origin: 0 0;
+            transition: transform 500ms ease;
+            transform-style: preserve-3d;
+        }
+
+        div.flap {
+            height: 150px;
+            width: 100%;
+            background-color: rgba(128, 37, 77, 0.73);
+            transition: transform 500ms ease 500ms;
+            transform-origin: 0 0;
+        }
+
+        div.door:hover {
+            transform: rotateY(-45deg);
+        }
+
+        div.door:hover > div.flap {
+            transform: rotateX(45deg);
+        }
+    </style>
+</head>
+<body>
+<div class="door">
+    <div class="flap"></div>
+</div>
+</body>
+</html>

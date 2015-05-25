@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    li:nth-child(2){
+       background-color: red;
+    }
+    li:nth-child(2) ~ li{
+        background-color:green;
+    }
+    div.container p:nth-of-type(3){
+        background-color:yellow;
+    }
+    p:empty{
+        background-color: green;
+        border: 1px solid red;
+    }
+
+</style>
+<body>
+<ul>
+    <li>Info</li>
+    <li>Data</li>
+    <li>Data</li>
+    <li>Info Data</li>
+    <li>Info Data</li>
+    <li>Info Data</li>
+    <li>Info Data</li>
+</ul>
+<div class="container">
+    <p>info</p>
+    <p>data</p>
+    <div>info and data</div>
+    <p>Target</p>
+    <p></p>
+    <p></p>
+    <p></p>
+</div>
+
+</body>
+</html>

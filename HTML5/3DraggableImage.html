@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="modernizr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+
+            if( Modernizr.canvas ) {
+
+
+                var img = new Image();
+                img.src = 'img/html.jpg';
+                img.addEventListener('load', function(evt){
+                    console.log(this);
+                    var canvas = document.getElementById('grayscale');
+
+                    canvas.height = window.innerHeight; canvas.width = window.innerWidth;
+                    var context = canvas.getContext('2d');
+                    context.drawImage(img, 0, 0);
+                    canvas.oy = canvas.ox = 0;
+                    canvas.onmousedown = function(evt){ canvas.clicked = true;
+                        canvas.initial = {x : evt.clientX, y: evt.clientY};
+                    };
+                    canvas.onmouseup = function(){ canvas.clicked = false };
+                    canvas.onmouseout = function(){ canvas.clicked = false };
+                    canvas.onmousemove = function(evt){
+
+                        if (canvas.clicked) {
+                            console.log('registering..');
+                            canvas.final = {x : evt.clientX, y: evt.clientY};
+                            console.log(canvas.initial);
+                            console.log(canvas.ox);
+                            canvas.ox += canvas.final.x - canvas.initial.x;
+                            canvas.oy += canvas.final.y - canvas.initial.y;
+                            console.log(canvas.ox + ', ' + canvas.oy);
+                            canvas.initial.x = canvas.final.x;
+                            canvas.initial.y = canvas.final.y;
+                            context.clearRect(0,0,canvas.width, canvas.height);
+                            context.drawImage(img, canvas.ox, canvas.oy);
+                        }
+                    };
+                });
+
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+<canvas id="grayscale">
+    No support for HTML5 canvas
+</canvas>
+<div id="counter"></div>
+</body>
+</html>

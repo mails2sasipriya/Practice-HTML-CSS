@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div.container {
+
+        }
+
+        div.first, div.second {
+            min-height: 100vh;
+            width: 50%;
+            background-color: red;
+            float: left;
+            color: white;
+
+        }
+
+        div.second {
+            background-color: darkred;
+        }
+
+        div.first > div, div.second > div {
+            padding: 1em;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="first"><div>
+            Rashmika
+        </div></div>
+        <div class="second">
+            <div>
+                Chris
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+</body>
+</html>

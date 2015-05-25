@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="modernizr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if( Modernizr.canvas ) {
+                var img = new Image();
+                img.src = 'img/html.jpg';
+                img.addEventListener('load', function(evt){
+                    console.log(this);
+                    var canvas = document.getElementById('grayscale');
+                    var div = document.getElementById('counter');
+                    canvas.height = 400; canvas.width = 700;
+                    var context = canvas.getContext('2d');
+                    var self = this;
+                    var multiplier = 2;
+                    var interval_id = window.setInterval(function (){
+                        multiplier += 1;
+                        multiplier === 1500  ? (function(){
+                            clearInterval(interval_id);
+
+                            /*context.globalAlpha = 0.4;
+                            context.fillStyle = '#aaa';
+                            context.font = '3em Avenir';
+                            context.textBaseline = 'top';
+                            context.fillText('Canvas', 0, 0);
+
+                            var imgx = document.createElement('img');
+                            imgx.alt = 'No Image';
+                            var url = canvas.toDataURL();
+                            imgx.src = url;
+                            document.body.appendChild(imgx);
+*/
+
+                        }()) : false;
+                        var width = 0.7 * multiplier;
+                        var height = 0.4 * multiplier;
+                        div.innerHTML = multiplier;
+                        context.drawImage(self, 175, 50, 350, 200,  0, 0, width, height);
+                    }, 1);
+                });
+
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+<canvas id="grayscale">
+    No support for HTML5 canvas
+</canvas>
+
+<div id="counter"></div>
+</body>
+</html>

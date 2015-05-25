@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        li.second + li { /* 0 0 1 2 */
+            background-color: red !important;
+        }
+
+        #third { /* 0 1 0 0 */
+            background-color: black !important;
+        }
+
+        #first, #second {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li id="first">Rashmika</li>
+    <li id="second" class="second third">Chris</li>
+    <li style="background-color: pink;" id="third" data-type="candidate">BP</li>
+    <li>Jui</li>
+</ul>
+
+<div id="#first">
+    <p class="second">
+        <span>Rashmika</span>
+    </p>
+</div>
+<div>
+    <span>Chris</span>
+</div>
+
+</body>
+</html>

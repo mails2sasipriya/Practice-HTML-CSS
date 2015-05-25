@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        #second {
+            background-color: black;
+            color: white;
+        }
+
+        body {
+            padding: 1em;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Element Selector */
+        ul {
+            border: 1px solid gray;
+        }
+
+        li {
+            border: 1px solid #eee;
+        }
+
+        [data-type="candidate"] {
+            background-color: green;
+        }
+
+        .third {
+            background-color: pink;
+        }
+
+        .second {
+            background-color: #aaa;
+        }
+
+        #first {
+            background-color: red;
+        }
+
+
+        /* 0 0 0 3  */
+        div p span {
+            font-size: 5em;
+        }
+
+        /* 0 1 1 2 */
+        div#first > .second > span {
+            font-size: 10em;
+        }
+
+        /* 0 0 0 2 */
+        div span {
+            font-size: 3em;
+        }
+
+        div > span {
+            font-size: 4em;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li id="first">Rashmika</li>
+        <li id="second" class="second third">Chris</li>
+        <li data-type="candidate">BP</li>
+        <li style="background-color: blue;">Jui</li>
+    </ul>
+
+    <div id="#first">
+        <p class="second">
+            <span>Rashmika</span>
+        </p>
+    </div>
+    <div>
+        <span>Chris</span>
+    </div>
+
+</body>
+</html>

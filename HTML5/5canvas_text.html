@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="modernizr.js"></script>
+    <script>
+        // https://developer.mozilla.org/en-US/docs/Drawing_text_using_a_canvas
+        // Canvas Text API
+
+        // Bouncing ball example using HTML5 Canvas
+
+
+
+        document.addEventListener('DOMContentLoaded', function(){
+
+            if( Modernizr.canvas ) {
+                var canvas = document.getElementById('grayscale');
+                var context = canvas.getContext('2d');
+                context.fillStyle = '#ccc';
+                context.fillRect(0,0,400,200);
+                context.fillStyle = '#aaa';
+                context.font = '3em Avenir';
+                context.textBaseline = 'top';
+                context.fillText('Canvas', 10, 10);
+            }
+
+        });
+    </script>
+</head>
+<body>
+<canvas id="grayscale" data-golivelabsid="64" height="600" width="600">
+    No support for HTML5 canvas
+</canvas>
+</body>
+</html>

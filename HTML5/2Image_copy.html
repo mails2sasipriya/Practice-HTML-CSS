@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="modernizr.js"></script>
+    <style>
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+
+            if( Modernizr.canvas ) {
+                var img = new Image();
+                img.src = 'img/html.jpg';
+                img.addEventListener('load', function(evt){
+                    var self = this; // img; evt.target
+                    var canvas = document.getElementById('grayscale');
+                    canvas.height = 400;
+                    canvas.width = 700; ///* // Put it in CSS
+                    var context = canvas.getContext('2d');
+                    context.drawImage(self, 175, 50, 350, 200,  0, 0, 700, 400);
+
+                    document.getElementById('imglink').href = canvas.toDataURL();
+                });
+
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+<canvas id="grayscale">
+    No support for HTML5 canvas
+</canvas>
+<div id="counter"></div>
+<a href="" id="imglink" download="image.jpg">Download</a>
+</body>
+</html>

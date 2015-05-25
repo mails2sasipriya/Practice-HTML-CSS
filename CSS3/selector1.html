@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div::after{
+            content: "This is div element ";
+        }
+        div:before{
+            content: "This is another div element";
+        }
+        li[data-mime="image/png"]::before{
+            content: url("images/file-formats-icons/png/png3.png");
+        }
+    </style>
+</head>
+<body>
+<div><span>This is in the middle</span></div>
+<input type="file" multiple/>
+<ul id="files">
+</ul>
+<script>
+    var input = document.querySelector('input');
+    input.addEventListener("change", function(){
+            console.log(this.files);
+        var files = Array.prototype.slice.call(this.files);
+        var ul = document.querySelector('ul');
+        files.forEach(function(file){
+            createElement('li', ul, '', file.name, {
+                'data-mime': file.type
+            })
+        });
+    });
+    function createElement(elementType, parent, className, innerHTML, custom) {
+        var element = document.createElement(elementType);
+        if (parent) parent.appendChild(element);
+        if (className) element.className = className;
+        if (innerHTML) element.innerHTML = innerHTML;
+        if (typeof custom !== 'undefined') {
+            for (var prop in custom) {
+                element.setAttribute(prop, custom[prop]);
+            }
+        }
+        return element;
+    }
+</script>
+</body>
+</html>
